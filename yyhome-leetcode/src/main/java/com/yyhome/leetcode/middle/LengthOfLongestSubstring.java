@@ -18,6 +18,12 @@ public class LengthOfLongestSubstring {
         System.out.println(lengthOfLongestSubstring("dvdf"));
     }
 
+    /**
+     * 执行耗时:4 ms,击败了86.74% 的Java用户
+     * 内存消耗:41.5 MB,击败了20.79% 的Java用户
+     * @param s
+     * @return
+     */
     private static int lengthOfLongestSubstring(String s) {
         int length = 0;
         Set<Integer> charSet = new HashSet<>();
