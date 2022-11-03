@@ -41,55 +41,6 @@ public class IsMatch44 {
         System.out.println(new IsMatch44().isMatch2("", "******"));
     }
 
-    public boolean isMatch(String s, String p) {
-        if (s.length() == 0) {
-            for (int i = 0; i < p.length(); i++) {
-                if (p.charAt(i) != '*') {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return cycle(0, 0, s, p);
-    }
-
-    public boolean cycle(int leftIndex, int rightIndex, String s, String p) {
-        if (leftIndex >= s.length() && rightIndex >= p.length()) {
-            return true;
-        } else if (leftIndex >= s.length()) {
-            // s到头了, 而p后面全是*, true, 否则false
-            for (int i = rightIndex; i < p.length(); i++) {
-                if (p.charAt(i) != '*') {
-                    return false;
-                }
-            }
-            return true;
-        } else if (rightIndex >= p.length()) {
-            return false;
-        }
-        if (p.charAt(rightIndex) == '?') {
-            // ?能匹配任何单个字符且必须是字符
-            return cycle(leftIndex + 1, rightIndex + 1, s, p);
-        } else if (p.charAt(rightIndex) == '*') {
-            for (rightIndex++; rightIndex < p.length(); rightIndex++) {
-                if (p.charAt(rightIndex) != '*') {
-                    rightIndex--;
-                    break;
-                }
-            }
-            if (rightIndex >= p.length() - 1) {
-                return true;
-            }
-            // *能匹配任意字符
-            for (int i = leftIndex; i < s.length(); i++) {
-                if (cycle(i, rightIndex + 1, s, p)) {
-                    return true;
-                }
-            }
-        }
-        return s.charAt(leftIndex) == p.charAt(rightIndex) && cycle(leftIndex + 1, rightIndex + 1, s, p);
-    }
-
     private Boolean[][] result;
 
     /**
