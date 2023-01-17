@@ -1,6 +1,5 @@
 package com.yyhome.leetcode.other;
 
-import java.text.MessageFormat;
 import java.util.Arrays;
 
 /**
@@ -10,14 +9,13 @@ import java.util.Arrays;
 public class Sort {
 
     public static void main(String[] args){
-//        int[] readyArr = new int[]{19,2,67,-8,37,82,-90,100,7};
-//        System.out.println("冒泡排序结果：" + Arrays.toString(bubblingSort(Arrays.copyOf(readyArr,readyArr.length))));
-//        System.out.println("选择排序结果：" + Arrays.toString(selectSort(Arrays.copyOf(readyArr,readyArr.length))));
-//        System.out.println("插入排序结果：" + Arrays.toString(insertSort(Arrays.copyOf(readyArr,readyArr.length))));
-//        System.out.println("希尔排序结果：" + Arrays.toString(shellSort(Arrays.copyOf(readyArr,readyArr.length))));
-//        System.out.println("归并排序结果：" + Arrays.toString(mergeSort(Arrays.copyOf(readyArr,readyArr.length))));
-//        System.out.println("快速排序结果：" + Arrays.toString(quickSort(Arrays.copyOf(readyArr,readyArr.length))));
-        yy();
+        int[] readyArr = new int[]{19,2,67,-8,37,82,-90,100,7};
+        System.out.println("冒泡排序结果：" + Arrays.toString(bubblingSort(Arrays.copyOf(readyArr,readyArr.length))));
+        System.out.println("选择排序结果：" + Arrays.toString(selectSort(Arrays.copyOf(readyArr,readyArr.length))));
+        System.out.println("插入排序结果：" + Arrays.toString(insertSort(Arrays.copyOf(readyArr,readyArr.length))));
+        System.out.println("希尔排序结果：" + Arrays.toString(shellSort(Arrays.copyOf(readyArr,readyArr.length))));
+        System.out.println("归并排序结果：" + Arrays.toString(mergeSort(Arrays.copyOf(readyArr,readyArr.length))));
+        System.out.println("快速排序结果：" + Arrays.toString(quickSort(Arrays.copyOf(readyArr,readyArr.length))));
     }
 
     /**
@@ -218,17 +216,5 @@ public class Sort {
         }
         nums[pivotIndex] = pivot;
         return pivotIndex;
-    }
-
-    private static void yy(){
-        String json = "{\n" +
-                "  \"countable\": true,\n" +
-                "  \"name\": \"\",\n" +
-                "  \"pageIndex\": 0,\n" +
-                "  \"pageSize\": 10,\n" +
-                "  \"standardCity\": \"\",\n" +
-                "  \"standardProvince\": \"\"\n" +
-                "}";
-
     }
 }
