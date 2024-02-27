@@ -16,6 +16,9 @@ public class SolveNQueens51 {
         System.out.println(JSON.toJSONString(new SolveNQueens51().solveNQueens(4)));
         System.out.println(JSON.toJSONString(new SolveNQueens51().solveNQueens(5)));
         System.out.println(JSON.toJSONString(new SolveNQueens51().solveNQueens(1)));
+        System.out.println(JSON.toJSONString(new SolveNQueens51().solveNQueens2(4)));
+        System.out.println(JSON.toJSONString(new SolveNQueens51().solveNQueens2(5)));
+        System.out.println(JSON.toJSONString(new SolveNQueens51().solveNQueens2(1)));
     }
 
     /**
@@ -93,5 +96,71 @@ public class SolveNQueens51 {
             }
         }
         return true;
+    }
+
+    List<List<String>> res = new ArrayList<>();
+
+    /**
+     * 执行耗时:3 ms,击败了57.21% 的Java用户
+     * 内存消耗:44 MB,击败了8.29% 的Java用户
+     * @param n
+     * @return
+     */
+    public List<List<String>> solveNQueens2(int n) {
+        int[][] board = new int[n][n];
+        cycle(board, 0, n);
+        return res;
+    }
+
+    private void cycle(int[][] board, int line, int n) {
+        for (int i = 0; i < n; i++) {
+            if (board[line][i] == 0) {
+                board[line][i] = -1;
+                if (line == n - 1) {
+                    // 已放置最后一行,则为解
+                    List<String> tempRes = new ArrayList<>();
+                    for (int ii = 0; ii < n; ii++) {
+                        StringBuilder s = new StringBuilder();
+                        for (int yy = 0; yy < n; yy++) {
+                            s.append(board[ii][yy] == -1 ? 'Q' : '.');
+                        }
+                        tempRes.add(s.toString());
+                    }
+                    res.add(tempRes);
+                } else {
+                    fillBoard(board, line, i, n, 1);
+                    cycle(board, line + 1, n);
+                    fillBoard(board, line, i, n, -1);
+                }
+                board[line][i] = 0;
+            }
+        }
+    }
+
+    private void fillBoard(int[][] board, int x, int y, int n, int num) {
+        for (int i = 0; i < n; i++) {
+            if (i == y) {
+                continue;
+            }
+            board[x][i] += num;
+        }
+        for (int i = 0; i < n; i++) {
+            if (i == x) {
+                continue;
+            }
+            board[i][y] += num;
+        }
+        for (int i = 1; i <= Math.min(x, y); i++) {
+            board[x-i][y-i] += num;
+        }
+        for (int i = 1; i < n - Math.max(x, y); i++) {
+            board[x+i][y+i] += num;
+        }
+        for (int i = 1; i < Math.min(x + 1, n - y); i++) {
+            board[x-i][y+i] += num;
+        }
+        for (int i = 1; i < Math.min(n - x, y + 1); i++) {
+            board[x+i][y-i] += num;
+        }
     }
 }
