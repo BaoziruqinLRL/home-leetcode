@@ -16,6 +16,12 @@ public class NumDistinct115 {
         System.out.println(new NumDistinct115().numDistinctDp("ddd", "dd"));
         System.out.println(new NumDistinct115().numDistinctDp("adbdadeecadeadeccaeaabdabdbcdabddddabcaaadbabaaedeeddeaeebcdeabcaaaeeaeeabcddcebddebeebedaecccbdcbcedbdaeaedcdebeecdaaedaacadbdccabddaddacdddc", "bcddceeeebecbc"));
         System.out.println(new NumDistinct115().numDistinctDp("rabbbit", "rabbit"));
+
+
+        System.out.println(new NumDistinct115().numDistinct2("babgbag", "bag"));
+        System.out.println(new NumDistinct115().numDistinct2("ddd", "dd"));
+        System.out.println(new NumDistinct115().numDistinct2("adbdadeecadeadeccaeaabdabdbcdabddddabcaaadbabaaedeeddeaeebcdeabcaaaeeaeeabcddcebddebeebedaecccbdcbcedbdaeaedcdebeecdaaedaacadbdccabddaddacdddc", "bcddceeeebecbc"));
+        System.out.println(new NumDistinct115().numDistinct2("rabbbit", "rabbit"));
     }
 
     /**
@@ -76,5 +82,44 @@ public class NumDistinct115 {
             }
         }
         return dp[0][0];
+    }
+
+
+    /**
+     * 执行耗时:6 ms,击败了91.09% 的Java用户
+     * 内存消耗:54.1 MB,击败了5.06% 的Java用户
+     * @param s
+     * @param t
+     * @return
+     */
+    public int numDistinct2(String s, String t) {
+        if (t.length() > s.length()) {
+            return 0;
+        }
+        // dp[x][y] 代表t字符串中倒数一共x+1个元素在s字符串中从y位置开始的子串个数，
+        // 那么dp[x-1][y]就等于(假设t[x-1]=s[y]则返回dp[x][y+1]) + dp[x-1][y+1]
+        // 通俗的解释就是t[x-1]在s[y]能匹配上的话，那么其字串数等于t[x]在s[y+1]处的
+        // 字串数量加上t[x-1]在s[y+1]处的子串数量，不能匹配上的话就纯等于t[x-1]在s[y+1]处的子串数量
+        long[][] dp = new long[t.length()][s.length()];
+        dp[0][s.length() - 1] = s.charAt(s.length() - 1) == t.charAt(t.length() - 1) ? 1 : 0;
+        char tl = t.charAt(t.length() - 1);
+        for (int j = s.length() - 2; j >= t.length() - 1; j--) {
+            dp[0][j] = dp[0][j+1] + (s.charAt(j) == tl ? 1 : 0);
+        }
+        for (int i = 1; i < t.length(); i++) {
+            char ti = t.charAt(t.length() - i - 1);
+            if (s.charAt(s.length() - i - 1) == ti) {
+                dp[i][s.length() - i - 1] = dp[i-1][s.length() - i];
+            } else {
+                dp[i][s.length() - i - 1] = 0;
+            }
+            for (int j = s.length() - i - 2; j >= t.length() - i - 1; j--) {
+                dp[i][j] = dp[i][j+1];
+                if (s.charAt(j) == ti) {
+                    dp[i][j] += dp[i-1][j+1];
+                }
+            }
+        }
+        return (int) (dp[t.length()-1][0]);
     }
 }
