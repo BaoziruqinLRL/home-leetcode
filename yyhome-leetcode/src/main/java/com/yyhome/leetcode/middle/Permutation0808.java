@@ -18,15 +18,17 @@ public class Permutation0808 {
     }
 
     /**
-     * 执行耗时:8 ms,击败了29.83% 的Java用户
-     * 内存消耗:44.2 MB,击败了25.00% 的Java用户
+     * 执行耗时:6 ms,击败了32.58% 的Java用户
+     * 内存消耗:43.9 MB,击败了39.33% 的Java用户
      * 回溯查找
      * @param S
      * @return
      */
     public String[] permutation(String S) {
         List<String> result = new ArrayList<>();
-        cycle(result, 0, S.toCharArray(), "", new int[S.length()]);
+        char[] charArray = S.toCharArray();
+        Arrays.sort(charArray);
+        cycle(result, 0, charArray, "", new int[S.length()]);
         return result.toArray(new String[0]);
     }
 
@@ -35,11 +37,11 @@ public class Permutation0808 {
             result.add(last);
             return;
         }
-        Set<Character> set = new HashSet<>();
+        char lastChar = '0';
         for (int i = 0; i < ca.length; i++) {
-            if (taked[i] == 0 && !set.contains(ca[i])) {
+            if (taked[i] == 0 && lastChar != ca[i]) {
                 taked[i] = 1;
-                set.add(ca[i]);
+                lastChar = ca[i];
                 cycle(result, index + 1, ca, last + ca[i], taked);
                 taked[i] = 0;
             }
