@@ -20,7 +20,7 @@ public class CountEval0814 {
      * 内存消耗:41.6 MB,击败了29.13% 的Java用户
      * 设置dp[i][j][k]为从i->j中k出现的次数，长为length的字符串中，出现结果result的次数为：
      * 以位置为index（1 <= index <= length-1）的符号左右计算出结果为result的次数总和。
-     * 例如1^0|0|1以index=1计算，左边结算出1的方式为1次，右边计算出1的方式为2【(0|0)|1或0|(0|1)】，那么index=1时计算出result=0的次数为1.
+     * 例如1^0|0|1以index=1计算，左边结算出1的方式为1次，右边计算出1的方式为2【(0|0)|1或0|(0|1)】，那么index=1时计算出result=0的次数为2.
      * 之后index+=2,把所有index遍历的结果加起来的和则为字符串出现result的次数
      * @param s
      * @param result
